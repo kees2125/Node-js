@@ -36,6 +36,33 @@ void update()
 		
 	}
 }
+server.on('message',function(msg)
+{
+	switch(msg)
+	{
+		case "KON":
+		ketel = true;
+		setRelay();
+		break;
+		case "KOFF":
+		ketel = false;
+		setRelay();
+		break;
+		case "VON":
+		verwarming = true;
+		setRelay();
+		break;
+		case "VOFF":
+		verwarming = false;
+		setRelay();
+		break;
+		case "GETINFO":
+		server.write(temp);
+		server.write(relay);
+		break;
+	}
+	update();
+}
 server.on('getData',function(){
 	server.write(temp);
 	server.write(relay);
