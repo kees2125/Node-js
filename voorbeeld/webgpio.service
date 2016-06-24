@@ -1,0 +1,12 @@
+[Service]
+WorkingDirectory=/home
+ExecStart=/opt/node/bin/node /home/webgpio.js
+Restart=always
+StandardOutput=syslog
+StandardError=syslog
+SyslogIdentifier=node-webgpio
+User=root
+Environment='NODE_ENV=production'
+
+[Install]
+WantedBy=multi-user.target
