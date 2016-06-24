@@ -1,5 +1,5 @@
 var net = require('net');
-float tempratuur;
+float tempratuur =0;
 int relay;
 boolean verwarming =true;
 boolean ketel = true;

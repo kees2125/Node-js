@@ -1,0 +1,46 @@
+<html>
+    <head>
+            <title> Pedir random </title>
+
+            <script src="socket.io/socket.io.js"></script> 
+			<script src="jquery-1.6.1.min.js"></script><!-- Downloaded Jquery -->
+
+<script> 
+    $(document).ready(function(){
+
+        var socket  = new io.Socket(),
+                text        = $('#text');
+
+        socket.connect();
+
+        socket.on('connect', function () {
+            text.html('connected');
+        });
+
+        socket.on('message', function (msg) {
+            text.html(msg);
+        });
+
+        socket.on('disconnect', function () {
+            text.html('disconnected');
+        });
+		void sendmessage(var mess)
+		{
+			socket.write(mess);
+		}
+
+    });
+</script> 
+
+    </head>
+
+    <body>
+            <h1>Inserte dos números </h1>
+            <form id="forma1"> 
+                <input type="text" id="num1"></input>
+                <input type="text" id="num2"></imput>
+                <input type="button" onClick="sendmessage("VON")" id="enviar" value="enviar"></input>
+            </form>
+    </body>
+
+<html>
