@@ -1,0 +1,78 @@
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN">
+<html> 
+
+<head> 
+
+</head> 
+
+<body>
+
+
+<div id="VERWARMING">
+				<p>Verwarming</p>
+                <input type="button"  id="verwarming" value=ON></input>
+</div>
+
+<div id="KETEL">
+                <p>Ketel</p>
+                <input type="button"  id="ketel" value=ON></input>
+
+</div>
+<div id="GetTemp">
+                <p>Tempratuur</p>
+                <input type="button"  id="ketel" value="Tempratuur: ?? °C"></input>
+
+</div>
+
+</div>
+</body> 
+<script type="text/javascript">
+var IPAddress="192.168.0.21";
+var start;
+var end;
+var ketelstatus = "ON";
+var verwarmingstatus = "ON";
+//  Get current page url using JavaScript
+var currentPageUrl = "";
+if (typeof this.href === "undefined") {
+    currentPageUrl = document.location.toString().toLowerCase();
+}
+else {
+    currentPageUrl = this.href.toString().toLowerCase();
+}
+
+start=currentPageUrl.search("http://")+7;
+end=currentPageUrl.search(":80");
+IPAddress=currentPageUrl.substring(start,end);
+
+document.getElementById("KETEL").onclick = function (ketelstatus) {
+    location.href = "http://"+IPAddress+":8080?cmd=ON";
+	if(ketelstatus == "ON")
+	{
+		ketelstatus = "OFF"
+	}
+	else
+	{
+		ketelstatus = "ON"
+	}
+	$KETEL.text(ketelstatus);
+};
+
+document.getElementById("VERWARMING").onclick = function (verwarmingstatus) {
+    location.href = "http://"+IPAddress+":8080?cmd=OFF";
+	if(verwarmingstatus == "ON")
+	{
+		verwarmingstatus = "OFF"
+	}
+	else
+	{
+		verwarmingstatus = "ON"
+	}
+};
+document.getElementById("GetTemp").onclick = function () {
+	location.href = "http://"+IPAddress+":8080?cmd=OFF";
+};
+
+</script>
+
+</html> 
