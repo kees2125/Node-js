@@ -58,7 +58,7 @@ function getWebsite(req,resp){
 	sb.appendLine("location.href = 'http://'+IPAddress+':8080?cmd=VerwarmingSwitch';");
 	sb.appendLine("};");
 	sb.appendLine("function setAutoTemp(){");
-	sb.appendLine("location.href = 'http://'+IPAddress+':8080?cmd='tempField.text;");
+	sb.appendLine("location.href = 'http://'+IPAddress+':8080?cmd='tempField.value;");
 	sb.appendLine("};");
 	sb.appendLine("</script>");
 	sb.appendLine("</html>");
