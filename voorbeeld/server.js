@@ -172,17 +172,19 @@ http.createServer(function (request, response) {
                 }
 			else if(id != null)
 			{
-				var test;
-				try{
-					test = parseFloat(id);
-					AutoMode = true;
-					AutoTemp = test;
-				}
-				catch(err)
+				if(id.length > 2 && id.length < 5)
 				{
-					AutoMode = false;
+					var test;
+					try{
+						test = parseFloat(id);
+						AutoMode = true;
+						AutoTemp = test;
+					}
+					catch(err)
+					{
+						AutoMode = false;
+					}
 				}
-				
 			}
 			getWebsite(request,response);
             //response.writeHead(200);
