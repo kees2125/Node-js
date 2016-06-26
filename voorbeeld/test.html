@@ -23,6 +23,10 @@
                 <input type="button"  onclick="getTemp()" id="tempratuur" value="Tempratuur: ?? °C"></input>
 
 </div>
+ <form id="autoTempForm"> 
+                <input type="text" id="autoTempField"></input>
+                <input type="button" onClick="setAutoTemp()" id="enviar" value="Set Automatic Tempratuur in Celcius"></input>
+            </form>
 
 </div>
 </body> 
@@ -78,6 +82,12 @@ function getTemp() {
 	var button = document.getElementById("tempratuur");
     button.value = "Tempratuur: 20NOT °C";
 };
+function setAutoTemp(){
+	var link = "http://"+IPAddress+":8080?cmd=";
+	var tempField = document.getElementById("autoTempField");
+	link += tempField.text;
+	location.href = link;
+}
 
 </script>
 
