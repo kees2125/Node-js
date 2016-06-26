@@ -58,7 +58,7 @@ function getWebsite(req,resp){
 	sb.appendLine("location.href = 'http://'+IPAddress+':8080?cmd=VerwarmingSwitch';");
 	sb.appendLine("};");
 	sb.appendLine("function setAutoTemp(){");
-	sb.appendLine("location.href = 'http://'+IPAddress+':8080?cmd=AutoMode'+tempField.text;");
+	sb.appendLine("location.href = 'http://'+IPAddress+':8080?cmd='tempField.text;");
 	sb.appendLine("};");
 	sb.appendLine("</script>");
 	sb.appendLine("</html>");
@@ -172,15 +172,17 @@ http.createServer(function (request, response) {
                 }
 			else if(id != null)
 			{
-				if(id.url.length>9)
-				{
-					if(id.url.substring(0,7) == "AutoMode")
-					{
-						AutoMode = true;
-						AutoTemp = id.url.substring(8,10);
-						
-					}
+				var test;
+				try{
+					test = parseFloat(id);
+					AutoMode = true;
+					AutoTemp = test;
 				}
+				catch(err)
+				{
+					AutoMode = false;
+				}
+				
 			}
 			getWebsite(request,response);
             //response.writeHead(200);
