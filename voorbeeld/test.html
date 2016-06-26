@@ -40,7 +40,7 @@ var tempratuur;
 //  Get current page url using JavaScript
 var currentPageUrl = "";
 var myVar = setInterval(myTimer, 1000);
-if (typeof this.href === "undefined") {
+if (typeof this.href === 'undefined') {
     currentPageUrl = document.location.toString().toLowerCase();
 }
 else {
@@ -64,7 +64,7 @@ function setKetel() {
 	if(ketelstatus == "ON")
 	{
 		ketelstatus = "OFF";
-		location.href = "http://"+IPAddress+":8080?cmd=KetelAan";
+		location.href = "http://"+IPAddress+":8080?cmd=Ketelswitch";
 	}
 	else if(ketelstatus == "OFF")
 	{
@@ -95,10 +95,7 @@ function getTemp() {
 	location.href = "http://"+IPAddress+":8080?cmd=Tempratuur";
 };
 function setAutoTemp(){
-	var link = "http://"+IPAddress+":8080?cmd=";
-	var tempField = document.getElementById("autoTempField");
-	link += tempField.text;
-	location.href = link;
+	location.href = "http://"+IPAddress+":8080?cmd="+tempField.text;
 }
 
 function myTimer() {
