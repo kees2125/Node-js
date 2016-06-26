@@ -58,7 +58,7 @@ function getWebsite(req,resp){
 	sb.appendLine("location.href = 'http://'+IPAddress+':8080?cmd=VerwarmingSwitch';");
 	sb.appendLine("};");
 	sb.appendLine("function setAutoTemp(){");
-	sb.appendLine("location.href = 'http://'+IPAddress+':8080?cmd='+tempField.text;");
+	sb.appendLine("location.href = 'http://'+IPAddress+':8080?cmd=AutoMode'+tempField.text;");
 	sb.appendLine("};");
 	sb.appendLine("</script>");
 	sb.appendLine("</html>");
@@ -170,7 +170,7 @@ http.createServer(function (request, response) {
             else if(id=="KetelSwitch"){
                 KetelSwitch();
                 }
-			else if(id.url.substring(0,7))
+			else if(id.url.substring(0,7) == "AutoMode")
 			{
 				AutoMode = true;
 				AutoTemp = id.url.substring(8,10);
