@@ -11,6 +11,9 @@ var verwarmingStatus = "ON";
 var ketelStatus= "ON";
 var temp ="tempratuur:??";
 var StringBuilder = require("stringbuilder");
+var AutoMode= false;
+var AutoTemp= 22.0;
+var myVar = setInterval(myTimer, 1000);
 gpio.setup(16, gpio.DIR_OUT);
 gpio.setup(18, gpio.DIR_OUT);
 function getWebsite(req,resp){
@@ -25,6 +28,14 @@ function getWebsite(req,resp){
 	sb.appendLine("<p>Tempratuur: "+temp+"°C</p>");
 	sb.appendLine("<input type='text' id='autoTempField'></input>");
 	sb.appendLine("<input type='button' onClick='setAutoTemp()' id='setTemp' value='Set Automatic Tempratuur in Celcius'></input>");
+	if(AutoMode == true)
+	{
+		sb.appendLine("<p>Mode:Auto</p>");
+	}
+	else
+	{
+		sb.appendLine("<p>Mode:Manual</p>");
+	}
 	sb.appendLine("</body>");
 	sb.appendLine("<script type='text/javascript'>");
 	sb.appendLine("var IPAddress='192.168.0.21';");
@@ -58,8 +69,27 @@ function getWebsite(req,resp){
 		resp.end();
 	});
 }
-
+function myTimer() {
+    if(AutoMode == true)
+	{
+		if(temp>= AutoTemp)
+		{
+			if(verwarmingStatus == "ON")
+			{
+				VerwarmingSwitch();
+			}
+		}
+		else
+		{
+			if(verwarmingStatus == "OFF")
+			{
+				VerwarmingSwitch();
+			}
+		}
+	}
+}
  function VerwarmingSwitch() {
+	 AutoMode = false;
 	 if(verwarmingStatus == "OFF")
 	 {
 		 verwarmingStatus = "ON";
@@ -81,6 +111,7 @@ function getWebsite(req,resp){
 
 
 function KetelSwitch(){
+	AutoMode = false;
 	if(ketelStatus == "OFF")
 	{
 		ketelStatus= "ON";
@@ -136,9 +167,15 @@ http.createServer(function (request, response) {
             if (id=="VerwarmingSwitch") {
                 VerwarmingSwitch();
                 }
-            if(id=="KetelSwitch"){
+            else if(id=="KetelSwitch"){
                 KetelSwitch();
                 }
+			else if(id.url.substring(0,7))
+			{
+				AutoMode = true;
+				AutoTemp = id.url.substring(8,10);
+				
+			}
 			getWebsite(request,response);
             //response.writeHead(200);
             //response.write("<script type='text/javascript'>location.href = 'http://"+IPAddress+":8000ans="+ketelStatus+""+verwarmingStatus+""+temp+"'</script>");
