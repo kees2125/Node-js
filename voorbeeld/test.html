@@ -10,17 +10,17 @@
 
 <div id="VERWARMING">
 				<p>Verwarming</p>
-                <input type="button"  id="verwarming" value=ON></input>
+                <input type="button" onclick="setVerwarming()"  id="verwarming" value=ON></input>
 </div>
 
 <div id="KETEL">
                 <p>Ketel</p>
-                <input type="button"  id="ketel" value=ON></input>
+                <input type="button" onclick="setKetel()" id="ketel" value=ON></input>
 
 </div>
 <div id="GetTemp">
                 <p>Tempratuur</p>
-                <input type="button"  id="tempratuur" value="Tempratuur: ?? °C"></input>
+                <input type="button"  onclick="getTemp()" id="tempratuur" value="Tempratuur: ?? °C"></input>
 
 </div>
 
@@ -45,24 +45,22 @@ start=currentPageUrl.search("http://")+7;
 end=currentPageUrl.search(":80");
 IPAddress=currentPageUrl.substring(start,end);
 
-document.getElementById("ketel").onclick = function (ketelstatus) {
+    function setKetel() {
     //location.href = "http://"+IPAddress+":8080?cmd=ON";
 	var button = document.getElementById("ketel");
 	if(ketelstatus == "ON")
 	{
 		ketelstatus = "OFF";
-		button.value = "OFF";
 	}
 	else
 	{
 		ketelstatus = "ON";
-		button.value = "ON";
 	}
-	 
+	 button.value = ketelstatus;
     
 };
 
-document.getElementById("verwarming").onclick = function (verwarmingstatus) {
+function setVerwarming() {
     //location.href = "http://"+IPAddress+":8080?cmd=OFF";
 	if(verwarmingstatus == "ON")
 	{
@@ -72,11 +70,13 @@ document.getElementById("verwarming").onclick = function (verwarmingstatus) {
 	{
 		verwarmingstatus = "ON"
 	}
-	 var button = document.getElementById("tempratuur");
+	 var button = document.getElementById("verwarming");
     button.value = verwarmingstatus;
 };
-document.getElementById("GetTemp").onclick = function () {
-	location.href = "http://"+IPAddress+":8080?cmd=OFF";
+function getTemp() {
+	//location.href = "http://"+IPAddress+":8080?cmd=OFF";
+	var button = document.getElementById("tempratuur");
+    button.value = "Tempratuur: 20NOT °C";
 };
 
 </script>
