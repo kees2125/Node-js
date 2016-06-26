@@ -20,7 +20,7 @@
 </div>
 <div id="GetTemp">
                 <p>Tempratuur</p>
-                <input type="button"  id="ketel" value="Tempratuur: ?? °C"></input>
+                <input type="button"  id="tempratuur" value="Tempratuur: ?? °C"></input>
 
 </div>
 
@@ -45,22 +45,25 @@ start=currentPageUrl.search("http://")+7;
 end=currentPageUrl.search(":80");
 IPAddress=currentPageUrl.substring(start,end);
 
-document.getElementById("KETEL").onclick = function (ketelstatus) {
-    location.href = "http://"+IPAddress+":8080?cmd=ON";
+document.getElementById("ketel").onclick = function (ketelstatus) {
+    //location.href = "http://"+IPAddress+":8080?cmd=ON";
+	var button = document.getElementById("ketel");
 	if(ketelstatus == "ON")
 	{
-		ketelstatus = "OFF"
+		ketelstatus = "OFF";
+		button.value = "OFF";
 	}
 	else
 	{
-		ketelstatus = "ON"
+		ketelstatus = "ON";
+		button.value = "ON";
 	}
-	 var button = document.getElementById("KETEL");
-    button.innerText = ketelstatus;
+	 
+    
 };
 
-document.getElementById("VERWARMING").onclick = function (verwarmingstatus) {
-    location.href = "http://"+IPAddress+":8080?cmd=OFF";
+document.getElementById("verwarming").onclick = function (verwarmingstatus) {
+    //location.href = "http://"+IPAddress+":8080?cmd=OFF";
 	if(verwarmingstatus == "ON")
 	{
 		verwarmingstatus = "OFF"
@@ -69,8 +72,8 @@ document.getElementById("VERWARMING").onclick = function (verwarmingstatus) {
 	{
 		verwarmingstatus = "ON"
 	}
-	 var button = document.getElementById("VERWARMING");
-    button.innerText = verwarmingstatus;
+	 var button = document.getElementById("tempratuur");
+    button.value = verwarmingstatus;
 };
 document.getElementById("GetTemp").onclick = function () {
 	location.href = "http://"+IPAddress+":8080?cmd=OFF";
