@@ -170,12 +170,17 @@ http.createServer(function (request, response) {
             else if(id=="KetelSwitch"){
                 KetelSwitch();
                 }
-			else if(id != null && id.url.length >9)
-			if(id.url.substring(0,7) == "AutoMode")
+			else if(id != null)
 			{
-				AutoMode = true;
-				AutoTemp = id.url.substring(8,10);
-				
+				if(id.url.length>9)
+				{
+					if(id.url.substring(0,7) == "AutoMode")
+					{
+						AutoMode = true;
+						AutoTemp = id.url.substring(8,10);
+						
+					}
+				}
 			}
 			getWebsite(request,response);
             //response.writeHead(200);
