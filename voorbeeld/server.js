@@ -170,8 +170,8 @@ http.createServer(function (request, response) {
             else if(id=="KetelSwitch"){
                 KetelSwitch();
                 }
-			if(id.url.length >= 10)
-			else if(id.url.substring(0,7) == "AutoMode")
+			else if(id != null)
+			if(id.url.substring(0,7) == "AutoMode")
 			{
 				AutoMode = true;
 				AutoTemp = id.url.substring(8,10);
