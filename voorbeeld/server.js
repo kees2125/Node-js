@@ -63,7 +63,7 @@ function getWebsite(req,resp){
 	 if(verwarmingStatus == "OFF")
 	 {
 		 verwarmingStatus = "ON";
-			gpio.write(16, true, function(err) {
+			gpio.write(16, false, function(err) {
 			if (err) console.log('Error writing to pin 16 true');
 			console.log('Written to pin');
 		});
@@ -71,7 +71,7 @@ function getWebsite(req,resp){
 	 else
 	 {
 		 verwarmingStatus = "OFF";
-		gpio.write(16, false, function(err) {
+		gpio.write(16, true, function(err) {
         if (err) console.log('Error writing to pin 16 false');
         console.log('Written to pin');
     });
@@ -84,7 +84,7 @@ function KetelSwitch(){
 	if(ketelStatus == "OFF")
 	{
 		ketelStatus= "ON";
-        gpio.write(18,true,function(err){
+        gpio.write(18,false,function(err){
         if(err) console.log('Error writing to pin 18 true');
         console.log('Writing to pin');
         });
@@ -92,7 +92,7 @@ function KetelSwitch(){
 	else
 	{
 		ketelStatus= "OFF";
-        gpio.write(18,false,function(err){
+        gpio.write(18,true,function(err){
         if(err) console.log('Error writing to pin 18 false');
         console.log('Writing to pin');
         });
