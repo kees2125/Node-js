@@ -56,7 +56,7 @@ function getWebsite(req,resp){
 		resp.writeHead(200,{"Content-Type":"text/html"});
 		resp.write(result);
 		resp.end();
-	}
+	});
 }
 
  function VerwarmingSwitch() {
