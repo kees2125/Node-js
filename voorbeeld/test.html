@@ -55,7 +55,8 @@ document.getElementById("KETEL").onclick = function (ketelstatus) {
 	{
 		ketelstatus = "ON"
 	}
-	$KETEL.text(ketelstatus);
+	 var button = document.getElementById("KETEL");
+    button.innerText = ketelstatus;
 };
 
 document.getElementById("VERWARMING").onclick = function (verwarmingstatus) {
@@ -68,6 +69,8 @@ document.getElementById("VERWARMING").onclick = function (verwarmingstatus) {
 	{
 		verwarmingstatus = "ON"
 	}
+	 var button = document.getElementById("VERWARMING");
+    button.innerText = verwarmingstatus;
 };
 document.getElementById("GetTemp").onclick = function () {
 	location.href = "http://"+IPAddress+":8080?cmd=OFF";
