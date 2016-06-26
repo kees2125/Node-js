@@ -170,6 +170,7 @@ http.createServer(function (request, response) {
             else if(id=="KetelSwitch"){
                 KetelSwitch();
                 }
+			if(id.url.length >= 10)
 			else if(id.url.substring(0,7) == "AutoMode")
 			{
 				AutoMode = true;
