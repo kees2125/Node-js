@@ -20,12 +20,12 @@
 </div>
 <div id="GetTemp">
                 <p>Tempratuur</p>
-                <input type="button"  onclick="getTemp()" id="tempratuur" value="getTemp()"></input>
+                <input type="button"  onclick="getTemp()" id="getTempratuur" value="getTemp()"></input>
 
 </div>
  <form id="autoTempForm"> 
                 <input type="text" id="autoTempField"></input>
-                <input type="button" onClick="setAutoTemp()" id="enviar" value="Set Automatic Tempratuur in Celcius"></input>
+                <input type="button" onClick="setAutoTemp()" id="setTemp" value="Set Automatic Tempratuur in Celcius"></input>
             </form>
 
 </div>
@@ -36,8 +36,10 @@ var start;
 var end;
 var ketelstatus = "ON";
 var verwarmingstatus = "ON";
+var tempratuur;
 //  Get current page url using JavaScript
 var currentPageUrl = "";
+var myVar = setInterval(myTimer, 1000);
 if (typeof this.href === "undefined") {
     currentPageUrl = document.location.toString().toLowerCase();
 }
@@ -48,7 +50,15 @@ else {
 start=currentPageUrl.search("http://")+7;
 end=currentPageUrl.search(":80");
 IPAddress=currentPageUrl.substring(start,end);
-
+function updateValues()
+{
+	var buttonKetel = document.getElementById("ketel");
+	var buttonVerwarming = document.getElementById("verwarming");
+	var buttonTempratuur = document.getElementById("tempratuur");
+	buttonKetel.value = ketelstatus;
+	buttonVerwarming.value = verwarmingstatus;
+	buttonTempratuur = "Tempratuur: "+tempratuur+"°C"
+}
 function setKetel() {
 	var button = document.getElementById("ketel");
 	if(ketelstatus == "ON")
@@ -89,6 +99,28 @@ function setAutoTemp(){
 	var tempField = document.getElementById("autoTempField");
 	link += tempField.text;
 	location.href = link;
+}
+
+function myTimer() {
+    var id = currentPageUrl.url.substring(currentPageUrl.search("ans=")+4,currentPageUrl.url.length);
+	if(id.url.substring(0,0) == "I")
+	{
+		ketelstatus = "ON";
+	}
+	else
+	{
+		ketelstatus = "OFF";
+	}
+	if(id.url.substring(1,1) == "I")
+	{
+		verwarmingstatus = "ON";
+	}
+	else
+	{
+		verwarmingstatus = "0FF";
+	}
+	tempratuur = id.url.substring(2,id.url.length);
+	
 }
 
 </script>

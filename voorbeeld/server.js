@@ -7,11 +7,14 @@ var connect = require('connect');
 var os=require('os');
 var ifaces=os.networkInterfaces();
 var err;
-
+var verwarmingStatus = "I";
+var ketelStatus= "I";
+var temp;
 gpio.setup(16, gpio.DIR_OUT);
 gpio.setup(18, gpio.DIR_OUT);
 
  function VerwarmingAan() {
+	 verwarmingStatus = "I";
     gpio.write(16, true, function(err) {
         if (err) console.log('Error writing to pin 16 true');
         console.log('Written to pin');
@@ -20,6 +23,7 @@ gpio.setup(18, gpio.DIR_OUT);
 
 
 function VerwarmingUit() {
+	verwarmingStatus = "O";
     gpio.write(16, false, function(err) {
         if (err) console.log('Error writing to pin 16 false');
         console.log('Written to pin');
@@ -27,6 +31,7 @@ function VerwarmingUit() {
 }
 
 function KetelAan(){
+		ketelStatus= "I";
         gpio.write(18,true,function(err){
         if(err) console.log('Error writing to pin 18 true');
         console.log('Writing to pin');
@@ -34,6 +39,7 @@ function KetelAan(){
 }
 
 function KetelUit(){
+		ketelStatus= "O";
         gpio.write(18,false,function(err){
         if(err) console.log('Error writing to pin 18 false');
         console.log('Writing to pin');
@@ -55,7 +61,7 @@ sensor.getAll(function(err,tempObj){
 });
 
 function Temperatuur(){
-    var temp = sensor.get('28-000007604538');
+    temp = sensor.get('28-000007604538');
 }
 
 for (var dev in ifaces) {
@@ -87,7 +93,7 @@ http.createServer(function (request, response) {
 				Temperatuur();
 			}
             response.writeHead(200);
-            response.write("<script type='text/javascript'>location.href = 'http://"+IPAddress+":8000'</script>");
+            response.write("<script type='text/javascript'>location.href = 'http://"+IPAddress+":8000ans="+ketelStatus+verwarmingStatus+temp"'</script>");
             response.end();
         }
     }).listen(8080,IPAddress);
