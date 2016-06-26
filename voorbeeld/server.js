@@ -10,6 +10,7 @@ var err;
 var verwarmingStatus = "ON";
 var ketelStatus= "ON";
 var temp ="tempratuur:??";
+var StringBuilder = require("stringbuilder");
 gpio.setup(16, gpio.DIR_OUT);
 gpio.setup(18, gpio.DIR_OUT);
 function getWebsite(req,resp){
@@ -30,7 +31,6 @@ function getWebsite(req,resp){
 	sb.appendLine("var start");
 	sb.appendLine("var end;");
 	sb.appendLine("var currentPageUrl = '';");
-	//sb.appendLine("var myVar = setInterval(myTimer, 1000);");
 	sb.appendLine("if (typeof this.href === 'undefined') {");
 	sb.appendLine("currentPageUrl = document.location.toString().toLowerCase();");
 	sb.appendLine("}");
@@ -59,38 +59,47 @@ function getWebsite(req,resp){
 	}
 }
 
- function VerwarmingAan() {
-	 verwarmingStatus = "ON";
-    gpio.write(16, true, function(err) {
-        if (err) console.log('Error writing to pin 16 true');
-        console.log('Written to pin');
-    });
-}
-
-
-function VerwarmingUit() {
-	verwarmingStatus = "OFF";
-    gpio.write(16, false, function(err) {
+ function VerwarmingSwitch() {
+	 if(verwarmingStatus == "OFF")
+	 {
+		 verwarmingStatus = "ON";
+			gpio.write(16, true, function(err) {
+			if (err) console.log('Error writing to pin 16 true');
+			console.log('Written to pin');
+		});
+	 }
+	 else
+	 {
+		 verwarmingStatus = "OFF";
+		gpio.write(16, false, function(err) {
         if (err) console.log('Error writing to pin 16 false');
         console.log('Written to pin');
     });
+	 }
 }
 
-function KetelAan(){
+
+
+function KetelSwitch(){
+	if(ketelStatus == "OFF")
+	{
 		ketelStatus= "ON";
         gpio.write(18,true,function(err){
         if(err) console.log('Error writing to pin 18 true');
         console.log('Writing to pin');
         });
-}
-
-function KetelUit(){
+	}
+	else
+	{
 		ketelStatus= "OFF";
         gpio.write(18,false,function(err){
         if(err) console.log('Error writing to pin 18 false');
         console.log('Writing to pin');
         });
+	}
 }
+
+
 
 
 sensor.isDriverLoaded(function(err,isLoaded){
@@ -123,21 +132,13 @@ for (var dev in ifaces) {
 http.createServer(function (request, response) {
     if( request.method == 'GET' ) {
         id = request.url.substring(request.url.search("cmd=")+4,request.url.length);
-            if (id=="VerwarmingAan") {
-                VerwarmingAan();
+		Temperatuur();
+            if (id=="VerwarmingSwitch") {
+                VerwarmingSwitch();
                 }
-            if (id=="VerwarmingUit") {
-                VerwarmingUit();
+            if(id=="KetelSwitch"){
+                KetelSwitch();
                 }
-            if(id=="KetelAan"){
-                KetelAan();
-                }
-            if(id=="KetelUit"){
-                KetelUit();
-                }
-			if(id=="Temperatuur"){
-				Temperatuur();
-			}
 			getWebsite(request,response);
             //response.writeHead(200);
             //response.write("<script type='text/javascript'>location.href = 'http://"+IPAddress+":8000ans="+ketelStatus+""+verwarmingStatus+""+temp+"'</script>");
