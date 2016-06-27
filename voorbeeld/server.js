@@ -21,11 +21,16 @@ function getWebsite(req,resp){
 	
 	sb.appendLine("<html> ");
 	sb.appendLine("<body>");
-	sb.appendLine("<p>Verwarming</p>");
+	sb.appendLine("<h2>Termostaat interface</h2>");
+	sb.appendLine("<form id='formVerwarming'> ");
+	sb.appendLine("<p>Verwarming:</p>");
 	sb.appendLine("<input type='button' onclick='setVerwarming()'  id='verwarming' value="+verwarmingStatus+"></input>");
-	sb.appendLine("<p>Ketel</p>");
+	sb.appendLine("</form> ");
+	sb.appendLine("<form id='formKetel'> ");
+	sb.appendLine("<p>Ketel:</p>");
 	sb.appendLine("<input type='button' onclick='setKetel()' id='ketel' value="+ketelStatus+"></input>");
-	sb.appendLine("<p>Tempratuur: "+temp+"°C</p>");
+	sb.appendLine("</form> ");
+	sb.appendLine("<p>Tempratuur: "+temp.toString().substring(0,4)+"°C</p>");
 	sb.appendLine("<input type='text' id='autoTempField'></input>");
 	sb.appendLine("<input type='button' onClick='setAutoTemp()' id='setTemp' value='Set Automatic Tempratuur in Celcius'></input>");
 	if(AutoMode == true)
