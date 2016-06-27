@@ -20,8 +20,11 @@ function getWebsite(req,resp){
 	var sb = new StringBuilder({newline: "\r\n"});
 	
 	sb.appendLine("<html> ");
+	sb.appendLine("<style>");
+	sb.appendLine("body{background-color:lightgrey;}")
+	sb.appendLine("</style>");
 	sb.appendLine("<body>");
-	sb.appendLine("<h2>Termostaat interface</h2>");
+	sb.appendLine("<h2>Thermostaat Bediening</h2>");
 	sb.appendLine("<table style = 'width:10%'> ");
 	sb.appendLine("<tr>");
 	sb.appendLine("<td><p>Verwarming:</p></td>");
@@ -32,16 +35,16 @@ function getWebsite(req,resp){
 	sb.appendLine("<td><input  type='button' onclick='setKetel()' id='ketel' value="+ketelStatus+"></input></td>");
 	sb.appendLine("</tr>");
 	sb.appendLine("</table>");
-	sb.appendLine("<p>Tempratuur: "+temp+"&degC</p>");
+	sb.appendLine("<p>Temperatuur: "+temp+"&degC</p>");
 	sb.appendLine("<input type='text' id='autoTempField'></input>");
-	sb.appendLine("<input type='button' onClick='setAutoTemp()' id='setTemp' value='Set Automatic Tempratuur in Celcius'></input>");
+	sb.appendLine("<input type='button' onClick='setAutoTemp()' id='setTemp' value='Zet Automatische Temperatuur in Celcius'></input>");
 	if(AutoMode == true)
 	{
-		sb.appendLine("<p>Mode:Auto</p>");
+		sb.appendLine("<p>Modus:Automatisch</p>");
 	}
 	else
 	{
-		sb.appendLine("<p>Mode:Manual</p>");
+		sb.appendLine("<p>Modus:Handmatig</p>");
 	}
 	sb.appendLine("</body>");
 	sb.appendLine("<script type='text/javascript'>");
